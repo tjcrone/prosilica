@@ -30,7 +30,7 @@ RPATH	= -Wl,--rpath -Wl,./
 
 # some locations
 INC_DIR	  = ../sdk/1.28/inc-pc/
-BIN_DIR   = ../sdk/1.28/bin-pc/$(CPU)/$(FLOAT)
+#BIN_DIR   = ../sdk/1.28/bin-pc/$(CPU)/$(FLOAT)
 LIB_DIR   = ../sdk/1.28/lib-pc/$(CPU)/4.7/$(FLOAT)
 OBJ_DIR	  = ./obj/$(CPU)
 EXTRA_LIB = -lpthread -lrt
@@ -39,7 +39,7 @@ EXTRA_LIB = -lpthread -lrt
 LTIFF   = -ltiff
 
 # libs (shared/static)
-PVLIB   = -L$(BIN_DIR) -lPvAPI
+#PVLIB   = -L$(BIN_DIR) -lPvAPI
 SOLIB	= $(EXTRA_LIB) -Bdynamic -lm -lc
 #SALIB	= -Bstatic $(LIB_DIR)/$(CVER)/libPvAPI.a
 SALIB	= -Bstatic $(LIB_DIR)/libPvAPI.a
