@@ -1,21 +1,20 @@
-# Global ARCHitecture settings for the Sample code
-#
-# this file should be adapted to your platform
+# Global ARCHitecture settings
 
 # Target CPU
-CPU     = x86
+CPU     = arm
 
 # Target OS
 OS      = LINUX
 
 # Optimisation level
-#OPT     = -O3
 OPT     = -O3
 
 # compiler version
-CVER    = 4.4
+CVER    = 6
+
 # compiler
 CC      = g++-$(CVER)
+
 # linker
 LD      = ld
 AR      = ar
@@ -25,24 +24,24 @@ SP      = strip
 DFLAGS	= -D_$(CPU) -D_$(OS)
 FLAGS   = -fno-strict-aliasing -fexceptions -I/usr/include $(DFLAGS)
 
-## path where to look for PvAPI shared lib
+# path where to look for PvAPI shared lib
 RPATH	= -Wl,--rpath -Wl,./ 
 
-## few locations
-INC_DIR	  = /usr/local/src/prosilica/1.24/AVT_GigE_SDK/inc-pc/
-BIN_DIR   = /usr/local/src/prosilica/1.24/AVT_GigE_SDK//bin-pc/$(CPU)
-LIB_DIR   = /usr/local/src/prosilica/1.24/AVT_GigE_SDK/lib-pc/$(CPU)
+# some locations
+INC_DIR	  = ../../1.28/inc-pc/
+BIN_DIR   = ../../1.28/bin-pc/$(CPU)
+LIB_DIR   = ../../1.28/lib-pc/$(CPU)
 OBJ_DIR	  = ./obj/$(CPU)
 EXTRA_LIB = -lpthread -lrt
 
-## TIFF library
+# TIFF library
 LTIFF   = -ltiff
 
-## libs (shared/static)
+# libs (shared/static)
 PVLIB   = -L$(BIN_DIR) -lPvAPI
 SOLIB	= $(EXTRA_LIB) -Bdynamic -lm -lc
 SALIB	= -Bstatic $(LIB_DIR)/$(CVER)/libPvAPI.a
 IMLIB   = -Bstatic $(LIB_DIR)/$(CVER)/libImagelib.a -Bdynamic $(LTIFF)
 
-## final compilation flags
+# final compilation flags
 CFLAGS	= $(OPT) $(FLAGS) -Wall -I$(INC_DIR) -D_REENTRANT $(EXTRA)
