@@ -2,6 +2,7 @@
 
 # Target CPU
 CPU     = arm
+FLOAT   = HF
 
 # Target OS
 OS      = LINUX
@@ -28,9 +29,9 @@ FLAGS   = -fno-strict-aliasing -fexceptions -I/usr/include $(DFLAGS)
 RPATH	= -Wl,--rpath -Wl,./ 
 
 # some locations
-INC_DIR	  = ../../1.28/inc-pc/
-BIN_DIR   = ../../1.28/bin-pc/$(CPU)
-LIB_DIR   = ../../1.28/lib-pc/$(CPU)
+INC_DIR	  = ../sdk/1.28/inc-pc/
+BIN_DIR   = ../sdk/1.28/bin-pc/$(CPU)/$(FLOAT)
+LIB_DIR   = ../sdk/1.28/lib-pc/$(CPU)/4.7/$(FLOAT)
 OBJ_DIR	  = ./obj/$(CPU)
 EXTRA_LIB = -lpthread -lrt
 
@@ -40,8 +41,10 @@ LTIFF   = -ltiff
 # libs (shared/static)
 PVLIB   = -L$(BIN_DIR) -lPvAPI
 SOLIB	= $(EXTRA_LIB) -Bdynamic -lm -lc
-SALIB	= -Bstatic $(LIB_DIR)/$(CVER)/libPvAPI.a
-IMLIB   = -Bstatic $(LIB_DIR)/$(CVER)/libImagelib.a -Bdynamic $(LTIFF)
+#SALIB	= -Bstatic $(LIB_DIR)/$(CVER)/libPvAPI.a
+SALIB	= -Bstatic $(LIB_DIR)/libPvAPI.a
+#IMLIB   = -Bstatic $(LIB_DIR)/$(CVER)/libImagelib.a -Bdynamic $(LTIFF)
+IMLIB   = -Bstatic $(LIB_DIR)/libImagelib.a -Bdynamic $(LTIFF)
 
 # final compilation flags
 CFLAGS	= $(OPT) $(FLAGS) -Wall -I$(INC_DIR) -D_REENTRANT $(EXTRA)
