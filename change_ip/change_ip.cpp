@@ -154,8 +154,12 @@ int main(int argc, char* argv[])
           Err = PvCameraIpSettingsChange(uid,&IpSettings);
           //Err = PvCameraIpSettingsGet(uid,&IpSettings);
           //printf("Settings changed.\n");
-          printf("done.\n");
-          }
+
+          if (Err != ePvErrSuccess)
+            printf("failed.\n");
+          else
+            printf("done.\n");
+        }
         else
           printf("No cameras found.\n");
       }
