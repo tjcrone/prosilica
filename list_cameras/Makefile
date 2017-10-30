@@ -3,7 +3,7 @@
 include ../arch/arm
 
 # Executable
-EXE	= change_ip
+EXE	= list_cameras
     
 $(OBJ_DIR)/%.o : %.cpp
 	$(CC) $(CFLAGS) $(VERSION) -c $< -o $@
