@@ -11,7 +11,7 @@ OS      = LINUX
 OPT     = -O3
 
 # compiler version
-CVER    = 6
+CVER    = 4.6
 
 # compiler
 CC      = g++-$(CVER)
@@ -31,7 +31,7 @@ RPATH	= -Wl,--rpath -Wl,./
 # some locations
 INC_DIR	  = ../sdk/1.28/inc-pc/
 #BIN_DIR   = ../sdk/1.28/bin-pc/$(CPU)/$(FLOAT)
-LIB_DIR   = ../sdk/1.28/lib-pc/$(CPU)/4.7/$(FLOAT)
+LIB_DIR   = ../sdk/1.28/lib-pc/$(CPU)/$(CVER)/$(FLOAT)
 OBJ_DIR	  = ./obj/$(CPU)
 EXTRA_LIB = -lpthread -lrt
 
