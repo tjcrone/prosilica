@@ -1,0 +1,16 @@
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+# loopback network interface
+auto lo
+    iface lo inet loopback
+
+# usb dongle
+auto eth1
+    iface eth0 inet dhcp
+
+# prosilica
+auto eth0
+    address 169.254.100.1
+    netmask 255.255.0.0
+    mtu 1500
