@@ -1,10 +1,5 @@
-/* This utility streams Prosilica camera data to disk. It is multithreaded and will stream
- * from any number of cameras at once, limited mostly by disk write speeds and network
- * bandwidth. The goal is to have something flexible that can be run from a Python script.
- * A more descriptive header will happen when this program is complete.
- *
- * Written by Timothy J. Crone
- * tjcrone@gmail.com */
+/*
+*/
 
 // includes
 #include <stdio.h>
@@ -60,12 +55,12 @@ typedef struct
 tSession GSession;
 
 // usage
-void ShowUsage()
-{
-  printf("usage: fileStream -u cameraID -o outfile\n");
-  printf("-u\tcamera unique ID (set multiple times for mulitple cameras\n");
-  printf("-o\toutput file (must be set as many times as -u)\n");
-}
+//void ShowUsage()
+//{
+//  printf("usage: snap_image -u cameraID -o outfile\n");
+//  printf("-u\tcamera unique ID (set multiple times for mulitple cameras\n");
+//  printf("-o\toutput file (must be set as many times as -u)\n");
+//}
 
 // sleep function (pass milliseconds)
 void Sleep(unsigned int time)
@@ -77,7 +72,7 @@ void Sleep(unsigned int time)
     t = r;
 }
 
-// wait for cameras (this just waits for the right *number* of cams, not the right cams)
+// wait for cameras
 bool WaitForCamera()
 {
   int waitCount = 0;
@@ -170,14 +165,14 @@ bool CameraSetup(tCamera& Camera)
   PvAttrUint32Set(Camera.Handle,"Width",1024ul);
   PvAttrUint32Set(Camera.Handle,"Height",1024ul);
   PvAttrUint32Set(Camera.Handle,"ExposureValue",GSession.ExposureValue);
-  //PvAttrEnumSet(Camera.Handle,"ExposureMode","Manual");
-  PvAttrEnumSet(Camera.Handle,"ExposureMode","Auto");
+  PvAttrEnumSet(Camera.Handle,"ExposureMode","Manual");
+  //PvAttrEnumSet(Camera.Handle,"ExposureMode","Auto");
   PvAttrEnumSet(Camera.Handle,"ExposureAutoAlg","Mean");
   //PvAttrEnumSet(Camera.Handle,"ExposureAutoAlg","FitRange");
   PvAttrUint32Set(Camera.Handle,"ExposureAutoMax", GSession.ExposureAutoMax);
   PvAttrEnumSet(Camera.Handle,"GainMode","Auto");
   PvAttrUint32Set(Camera.Handle,"GainAutoMax", GSession.GainAutoMax);
-  PvAttrUint32Set(Camera.Handle,"PacketSize",9000ul);
+  PvAttrUint32Set(Camera.Handle,"PacketSize",1500ul);
   //PvAttrUint32Set(Camera.Handle,"StreamBytesPerSecond",124000000ul);
   PvAttrUint32Set(Camera.Handle,"StreamBytesPerSecond",80000000ul);
 
@@ -211,7 +206,6 @@ bool WriteHeader(tCamera& Camera)
   fwrite((void*)&frameRate,1,sizeof(float),(FILE*)Camera.fhandle); // 4 bytes
   fwrite((void*)&frameCount,1,sizeof(long),(FILE*)Camera.fhandle); // 4 bytes
   fwrite((void*)&pixelFormat,1,16,(FILE*)Camera.fhandle); // 16 bytes
-
 
   return true;
 }
@@ -273,13 +267,13 @@ bool startCapture(tCamera& Camera)
 bool setStart(tCamera& Camera)
 {
   unsigned long timeStampHi = 0;
-  tPvErr Err;
+  //tPvErr Err;
 
   // latch to find current camera time
   if(!PvCommandRun(Camera.Handle,"TimeStampValueLatch"))
   {
     // get high time stamp
-    Err = PvAttrUint32Get(Camera.Handle,"TimeStampValueHi",&timeStampHi);
+    PvAttrUint32Get(Camera.Handle,"TimeStampValueHi",&timeStampHi);
 
     // calculate and set startTimeHi and startTimeLow in GSession
     GSession.startStampHi = timeStampHi+2;
@@ -588,8 +582,8 @@ int main(int argc, char* argv[])
     else
       printf("Prosilica API failed to initialize.\n");
   }
-  else
-    ShowUsage();
+  //else
+  //  ShowUsage();
 
 
   //printf("\n");
