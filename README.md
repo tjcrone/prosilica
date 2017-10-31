@@ -1,2 +1,2 @@
-# Prosilica
-Prosilica camera programs.
+# Sedcam
+Software for the sedcam.
