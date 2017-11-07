@@ -2,8 +2,15 @@
 # Setup script for the SedCam Beaglebone. Run this script with sudo immediately
 # upon booting into newly flashed SD card.
 
-HOME='/home/debian'
-SEDCAM='$HOME/sedcam'
+# definitions
+HOME="/home/debian"
+SEDCAM="$HOME/sedcam"
+
+# check for root
+if [[ $EUID -ne 0 ]]; then
+   echo "This script must be run as root."
+   exit 1
+fi
 
 # move to user home
 cd $HOME
