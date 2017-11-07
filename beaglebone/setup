@@ -37,3 +37,13 @@ service networking restart
 sudo -u debian cp sedcam/beaglebone/.bashrc ~
 sudo -u debian cp sedcam/beaglebone/.gitconfig ~
 sudo -u debian cp sedcam/beaglebone/.vimrc ~
+
+# make prosilica programs
+cd $SEDCAM/prosilica/list_cameras
+sudo -u debian make
+
+cd $SEDCAM/prosilica/change_ip
+sudo -u debian make
+
+cd $SEDCAM/prosilica/snap_image
+sudo -u debian make
