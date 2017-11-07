@@ -35,5 +35,5 @@ service networking restart
 
 # user configuration files
 sudo -u debian cp sedcam/beaglebone/.bashrc ~
-sudo -u debian source ~/.bashrc
 sudo -u debian cp sedcam/beaglebone/.gitconfig ~
+sudo -u debian cp sedcam/beaglebone/.vimrc ~
