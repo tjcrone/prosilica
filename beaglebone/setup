@@ -1,0 +1,32 @@
+#!/bin/bash
+# Setup script for the SedCam Beaglebone. Run this script with sudo immediately
+# upon booting into newly flashed SD card.
+
+HOME='/home/debian'
+SEDCAM='$HOME/sedcam'
+
+# move to user home
+cd $HOME
+
+# updates
+apt-get update
+apt-get -y upgrade
+apt-get -y dist-upgrade
+apt-get -y autoremove
+
+# prepare home directory
+rm -f $HOME/.gitconfig
+rm -rf $HOME/bin
+
+# clone sedcam repository
+sudo -u debian git clone https://github.com/tjcrone/sedcam.git $SEDCAM
+
+# ethernet setup
+cp $SEDCAM/beaglebone/interfaces /etc/network/
+chown root:root /etc/network/interfaces
+service networking restart
+
+# user configuration files
+sudo -u debian cp sedcam/beaglebone/.bashrc ~
+sudo -u debian source ~/.bashrc
+sudo -u debian cp sedcam/beaglebone/.gitconfig ~
