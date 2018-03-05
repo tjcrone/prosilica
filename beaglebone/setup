@@ -25,9 +25,6 @@ apt-get -y autoremove
 rm -f $HOME/.gitconfig
 rm -rf $HOME/bin
 
-# clone sedcam repository
-sudo -u debian git clone https://github.com/tjcrone/sedcam.git $SEDCAM
-
 # ethernet setup
 cp $SEDCAM/beaglebone/interfaces /etc/network/
 chown root:root /etc/network/interfaces
