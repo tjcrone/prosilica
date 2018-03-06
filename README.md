@@ -23,3 +23,12 @@ On Beaglebone:
 4. cd sedcam/beaglebone
 5. chmod 744 setup
 6. sudo ./setup
+
+7. wget http://repo.continuum.io/miniconda/Miniconda3-latest-Linux-armv7l.sh
+8. chmod 744 Miniconda3-latest-Linux-armv7l.sh
+9. ./Miniconda3-latest-Linux-armv7l.sh
+10. conda create --name sedcam python=3.4
+11. source activate sedcam
+12. conda install numpy
+13. pip install --upgrade pip
+14. pip install numpngw
