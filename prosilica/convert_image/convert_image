@@ -1,0 +1,54 @@
+#!/usr/bin/env python
+
+# imports
+import argparse
+import os
+import struct
+import numpy as np
+from numpngw import write_png
+
+# version function
+version = '0.1dev'
+def get_version():
+  return ('%%(prog)s version %s' % version)
+
+# default output file function
+def default_output(input_file):
+  if '.' not in input_file:
+    return input_file + '.png'
+  else:
+    return os.path.splitext(input_file)[0]+'.png'
+
+# parse arguments
+parser = argparse.ArgumentParser(description='Utility to convert sedcam image files into PNGs')
+parser.add_argument('-v', '--version', action='version', version=get_version())
+parser.add_argument('-i', required=True, dest='input', metavar="filename", type=str, default=[],
+  help="inpute file name")
+args = parser.parse_args()
+parser.add_argument("-o", dest="output", metavar="filename", type=str,
+  default=default_output(args.input), help="output file name")
+args = parser.parse_args()
+
+# error check arguments
+if not os.path.exists(args.input):
+  parser.error("argument -i: input file '%s' does not exist" % args.input)
+
+# read input file
+with open(args.input, "rb") as image_file:
+
+  # read header
+  width = int.from_bytes(image_file.read(4), byteorder='little')
+  height = int.from_bytes(image_file.read(4), byteorder='little')
+  time_stamp_freq = int.from_bytes(image_file.read(4), byteorder='little')
+  frame_rate = struct.unpack('<f', image_file.read(4)) # something is wrong with this
+  frame_count = int.from_bytes(image_file.read(4), byteorder='little')
+  pixel_format = image_file.read(16).decode('ascii')
+
+  # read pixel data into byte-string
+  image_str = image_file.read(2*width*height)
+
+  # convert pixel data into numpy array 
+  image = np.fromstring(image_str, dtype=np.dtype('>u2'), count=width*height)
+
+  # write to png
+  write_png(args.output, np.reshape(image, (width, height), order='C'))
