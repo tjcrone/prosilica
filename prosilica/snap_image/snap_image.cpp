@@ -160,13 +160,13 @@ bool CameraSetup(tCamera& Camera)
   //PvAttrUint32Set(Camera.Handle,"AcquisitionFrameCount",1000);
   PvAttrUint32Set(Camera.Handle,"AcquisitionFrameCount",GSession.AcquisitionFrameCount);
   //PvAttrEnumSet(Camera.Handle,"PixelFormat","Mono8");
-  //PvAttrEnumSet(Camera.Handle,"PixelFormat","Mono16");
-  PvAttrEnumSet(Camera.Handle,"PixelFormat","Mono12Packed");
+  PvAttrEnumSet(Camera.Handle,"PixelFormat","Mono16");
+  //PvAttrEnumSet(Camera.Handle,"PixelFormat","Mono12Packed");
   PvAttrUint32Set(Camera.Handle,"Width",1024ul);
   PvAttrUint32Set(Camera.Handle,"Height",1024ul);
   PvAttrUint32Set(Camera.Handle,"ExposureValue",GSession.ExposureValue);
-  PvAttrEnumSet(Camera.Handle,"ExposureMode","Manual");
-  //PvAttrEnumSet(Camera.Handle,"ExposureMode","Auto");
+  //PvAttrEnumSet(Camera.Handle,"ExposureMode","Manual");
+  PvAttrEnumSet(Camera.Handle,"ExposureMode","Auto");
   PvAttrEnumSet(Camera.Handle,"ExposureAutoAlg","Mean");
   //PvAttrEnumSet(Camera.Handle,"ExposureAutoAlg","FitRange");
   PvAttrUint32Set(Camera.Handle,"ExposureAutoMax", GSession.ExposureAutoMax);
